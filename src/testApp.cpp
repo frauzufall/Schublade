@@ -33,6 +33,8 @@ void testApp::setup(){
     gui.add(draw_gui.set("show gui", true));
     gui.add(show_cursor.set("show cursor", true));
 
+    gui.loadFromFile("settings.xml");
+
 }
 
 void testApp::loadImageset(string name){
