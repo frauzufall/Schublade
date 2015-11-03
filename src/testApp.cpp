@@ -104,17 +104,17 @@ void testApp::draw(){
                 in_shape.y = (image->getHeight() - in_shape.height)/2;
             }
 
-            image->bind();
+            image->draw(out_shape.x, out_shape.y, image->getWidth(), image->getHeight());
 
-            glBegin(GL_QUADS);
+//            glBegin(GL_QUADS);
 
-            glTexCoord2f(in_shape.getLeft(), in_shape.getTop());		glVertex3f(out_shape.getLeft(), out_shape.getTop(), 0);
-            glTexCoord2f(in_shape.getRight(), in_shape.getTop());		glVertex3f(out_shape.getRight(), out_shape.getTop(), 0);
-            glTexCoord2f(in_shape.getRight(), in_shape.getBottom());	glVertex3f(out_shape.getRight(), out_shape.getBottom(), 0);
-            glTexCoord2f(in_shape.getLeft(), in_shape.getBottom());		glVertex3f(out_shape.getLeft(), out_shape.getBottom(), 0);
+//            glTexCoord2f(in_shape.getLeft(), in_shape.getTop());		glVertex3f(out_shape.getLeft(), out_shape.getTop(), 0);
+//            glTexCoord2f(in_shape.getRight(), in_shape.getTop());		glVertex3f(out_shape.getRight(), out_shape.getTop(), 0);
+//            glTexCoord2f(in_shape.getRight(), in_shape.getBottom());	glVertex3f(out_shape.getRight(), out_shape.getBottom(), 0);
+//            glTexCoord2f(in_shape.getLeft(), in_shape.getBottom());		glVertex3f(out_shape.getLeft(), out_shape.getBottom(), 0);
 
-            glEnd();
-            image->unbind();
+//            glEnd();
+//            image->unbind();
 
         }
 
