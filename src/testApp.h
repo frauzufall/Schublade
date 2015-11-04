@@ -34,6 +34,8 @@ private:
 
         ofParameter<int> active_set;
 
+        ofParameter<int> window_width, window_height;
+
         ofParameter<bool> draw_gui, show_cursor;
 
         ofxPanel gui;

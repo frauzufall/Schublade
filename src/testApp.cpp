@@ -5,8 +5,6 @@ void testApp::setup(){
 
     ofBackground(0);
 
-    ofSetFullscreen(true);
-
     ofDirectory dir("imagesets");
     dir.listDir();
     dir.sort();
@@ -32,8 +30,13 @@ void testApp::setup(){
     gui.add(right.set("right", 1, 0, 1));
     gui.add(draw_gui.set("show gui", true));
     gui.add(show_cursor.set("show cursor", true));
+    gui.add(window_width.set("window width", 1920, 0, 1920));
+    gui.add(window_height.set("window height", 1200, 0, 1200));
 
     gui.loadFromFile("settings.xml");
+
+    ofSetWindowShape(window_width, window_height);
+    ofSetFullscreen(true);
 
 }
 
@@ -81,10 +84,10 @@ void testApp::update(){
 void testApp::draw(){
 
     ofRectangle out_shape;
-    out_shape.x = left*ofGetWidth();
-    out_shape.y = top*ofGetHeight();
-    out_shape.width = ofGetWidth()*right-out_shape.x;
-    out_shape.height = ofGetHeight()*bottom-out_shape.y;
+    out_shape.x = left*window_width;
+    out_shape.y = top*window_height;
+    out_shape.width = window_width*right-out_shape.x;
+    out_shape.height = window_height*bottom-out_shape.y;
 
     ofSetColor(255);
 
