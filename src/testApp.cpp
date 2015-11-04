@@ -51,7 +51,7 @@ void testApp::loadImageset(string name){
     vector<ofFile> files = dir.getFiles();
     for(uint i = 0; i < files.size(); i++) {
         ofPtr<ofImage> img = ofPtr<ofImage>(new ofImage());
-        img->loadImage(files.at(i));
+        img->load(files.at(i));
 
         images.at(index).push_back(img);
     }
@@ -61,7 +61,11 @@ void testApp::loadImageset(string name){
 
 void testApp::setActiveImageset(int& setid){
 
-    distance.setMax(images.at(setid).size()-1);
+    if(active_set >= images.size()){
+        active_set = images.size()-1;
+    }
+
+    distance.setMax(images.at(active_set).size()-1);
     distance.set(0);
 }
 

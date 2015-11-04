@@ -3,7 +3,7 @@
 # OF_ROOT allows to move projects outside apps/* just set this variable to the
 # absoulte path to the OF root folder
 
-OF_ROOT = ../../../of/0080
+OF_ROOT = ../../../of/git
 
 # USER_CFLAGS allows to pass custom flags to the compiler
 # for example search paths like:
