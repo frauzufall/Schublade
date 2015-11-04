@@ -151,8 +151,7 @@ void testApp::keyPressed(int key){
         break;
     }
     case 'm': {
-        bool show = !show_cursor;
-        setShowCursor(show);
+        show_cursor = !show_cursor;
         break;
     }
     default:break;
