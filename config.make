@@ -1,65 +1,150 @@
-# add custom variables to this file
+################################################################################
+# CONFIGURE PROJECT MAKEFILE (optional)
+#   This file is where we make project specific configurations.
+################################################################################
 
-# OF_ROOT allows to move projects outside apps/* just set this variable to the
-# absoulte path to the OF root folder
-
+################################################################################
+# OF ROOT
+#   The location of your root openFrameworks installation
+#       (default) OF_ROOT = ../../.. 
+################################################################################
 OF_ROOT = ../../../of/git
 
-# USER_CFLAGS allows to pass custom flags to the compiler
-# for example search paths like:
-# USER_CFLAGS = -I src/objects
+#export RPI_TOOLS = /home/random/Development/Libraries/rpi-tools
+#export RPI_ROOT = ../../../../../../..
+#export GST_VERSION = 1.0
+#export PLATFORM_OS = Linux
+#export PLATFORM_ARCH = armv6l
+#make -j3 RPI_TOOLS=/home/random/Development/Libraries/rpi-tools RPI_ROOT=../../../../../../.. GST_VERSION=1.0 PLATFORM_OS=Linux PLATFORM_ARCH=armv6l
+#make -j3 RPI_TOOLS=/home/random/Development/Libraries/rpi-tools RPI_ROOT=/home/random/Development/15-10_Blockseminar/raspberry/rpi-root-copy GST_VERSION=1.0 PLATFORM_OS=Linux PLATFORM_ARCH=armv6l
 
-USER_CFLAGS = -I src/visuals -I src/visuals/model -I src/visuals/control
-USER_CFLAGS += -I src/traces -I src/traces/model -I src/traces/control
-USER_CFLAGS += -g -I src/view -I src/util
+################################################################################
+# PROJECT ROOT
+#   The location of the project - a starting place for searching for files
+#       (default) PROJECT_ROOT = . (this directory)
+#    
+################################################################################
+# PROJECT_ROOT = .
 
-USER_CFLAGS += -I src/_layer/empty -I src/_layer/test  -I src/_layer/primitives
-USER_CFLAGS += -I src/_layer/lines -I src/_layer/hypnose -I src/_layer/film
-USER_CFLAGS += -I src/_layer/crowd -I src/_layer/dripping -I src/layer/eggs
-USER_CFLAGS += -I src/_layer/paperfly -I src/_layer/fft -I src/_layer/image
-USER_CFLAGS += -I src/_layer/mapping -I src/_layer/frame -I src/_layer/gallery
-USER_CFLAGS += -I src/_layer/vinylrotate -I src/_layer/vinylshutter
-USER_CFLAGS += -I src/_layer/treeshilouette -I src/_layer/flowers
+################################################################################
+# PROJECT SPECIFIC CHECKS
+#   This is a project defined section to create internal makefile flags to 
+#   conditionally enable or disable the addition of various features within 
+#   this makefile.  For instance, if you want to make changes based on whether
+#   GTK is installed, one might test that here and create a variable to check. 
+################################################################################
+# None
 
-USER_CFLAGS += -I src/_paths/empty -I src/_paths/tracing -I src/_paths/reklame
-USER_CFLAGS += -I src/_paths/frame -I src/_paths/scribble -I src/_paths/voronoi
-USER_CFLAGS += -I src/_paths/ct_painting -I src/_paths/ct_control -I src/_paths/fill
+################################################################################
+# PROJECT EXTERNAL SOURCE PATHS
+#   These are fully qualified paths that are not within the PROJECT_ROOT folder.
+#   Like source folders in the PROJECT_ROOT, these paths are subject to 
+#   exlclusion via the PROJECT_EXLCUSIONS list.
+#
+#     (default) PROJECT_EXTERNAL_SOURCE_PATHS = (blank) 
+#
+#   Note: Leave a leading space when adding list items with the += operator
+################################################################################
+# PROJECT_EXTERNAL_SOURCE_PATHS = 
 
+################################################################################
+# PROJECT EXCLUSIONS
+#   These makefiles assume that all folders in your current project directory 
+#   and any listed in the PROJECT_EXTERNAL_SOURCH_PATHS are are valid locations
+#   to look for source code. The any folders or files that match any of the 
+#   items in the PROJECT_EXCLUSIONS list below will be ignored.
+#
+#   Each item in the PROJECT_EXCLUSIONS list will be treated as a complete 
+#   string unless teh user adds a wildcard (%) operator to match subdirectories.
+#   GNU make only allows one wildcard for matching.  The second wildcard (%) is
+#   treated literally.
+#
+#      (default) PROJECT_EXCLUSIONS = (blank)
+#
+#		Will automatically exclude the following:
+#
+#			$(PROJECT_ROOT)/bin%
+#			$(PROJECT_ROOT)/obj%
+#			$(PROJECT_ROOT)/%.xcodeproj
+#
+#   Note: Leave a leading space when adding list items with the += operator
+################################################################################
+# PROJECT_EXCLUSIONS =
 
-# USER_LDFLAGS allows to pass custom flags to the linker
-# for example libraries like:
-# USER_LDFLAGS = libs/libawesomelib.a
+################################################################################
+# PROJECT LINKER FLAGS
+#	These flags will be sent to the linker when compiling the executable.
+#
+#		(default) PROJECT_LDFLAGS = -Wl,-rpath=./libs
+#
+#   Note: Leave a leading space when adding list items with the += operator
+#
+# Currently, shared libraries that are needed are copied to the 
+# $(PROJECT_ROOT)/bin/libs directory.  The following LDFLAGS tell the linker to
+# add a runtime path to search for those shared libraries, since they aren't 
+# incorporated directly into the final executable application binary.
+################################################################################
+# PROJECT_LDFLAGS=-Wl,-rpath=./libs
 
-USER_LDFLAGS =
-USER_LIBS = -laubio
+################################################################################
+# PROJECT DEFINES
+#   Create a space-delimited list of DEFINES. The list will be converted into 
+#   CFLAGS with the "-D" flag later in the makefile.
+#
+#		(default) PROJECT_DEFINES = (blank)
+#
+#   Note: Leave a leading space when adding list items with the += operator
+################################################################################
+# PROJECT_DEFINES = 
 
-EXCLUDE_FROM_SOURCE="bin,.xcodeproj,obj"
+################################################################################
+# PROJECT CFLAGS
+#   This is a list of fully qualified CFLAGS required when compiling for this 
+#   project.  These CFLAGS will be used IN ADDITION TO the PLATFORM_CFLAGS 
+#   defined in your platform specific core configuration files. These flags are
+#   presented to the compiler BEFORE the PROJECT_OPTIMIZATION_CFLAGS below. 
+#
+#		(default) PROJECT_CFLAGS = (blank)
+#
+#   Note: Before adding PROJECT_CFLAGS, note that the PLATFORM_CFLAGS defined in 
+#   your platform specific configuration file will be applied by default and 
+#   further flags here may not be needed.
+#
+#   Note: Leave a leading space when adding list items with the += operator
+################################################################################
+# PROJECT_CFLAGS = 
 
-# change this to add different compiler optimizations to your project
+################################################################################
+# PROJECT OPTIMIZATION CFLAGS
+#   These are lists of CFLAGS that are target-specific.  While any flags could 
+#   be conditionally added, they are usually limited to optimization flags. 
+#   These flags are added BEFORE the PROJECT_CFLAGS.
+#
+#   PROJECT_OPTIMIZATION_CFLAGS_RELEASE flags are only applied to RELEASE targets.
+#
+#		(default) PROJECT_OPTIMIZATION_CFLAGS_RELEASE = (blank)
+#
+#   PROJECT_OPTIMIZATION_CFLAGS_DEBUG flags are only applied to DEBUG targets.
+#
+#		(default) PROJECT_OPTIMIZATION_CFLAGS_DEBUG = (blank)
+#
+#   Note: Before adding PROJECT_OPTIMIZATION_CFLAGS, please note that the 
+#   PLATFORM_OPTIMIZATION_CFLAGS defined in your platform specific configuration 
+#   file will be applied by default and further optimization flags here may not 
+#   be needed.
+#
+#   Note: Leave a leading space when adding list items with the += operator
+################################################################################
+# PROJECT_OPTIMIZATION_CFLAGS_RELEASE = 
+# PROJECT_OPTIMIZATION_CFLAGS_DEBUG = 
 
-USER_COMPILER_OPTIMIZATION = -march=native -mtune=native -Os
-
-
-# android specific, in case you want to use different optimizations
-USER_LIBS_ARM = 
-USER_LIBS_ARM7 = 
-USER_LIBS_NEON = 
-
-# android optimizations
-
-ANDROID_COMPILER_OPTIMIZATION = -Os
-
-NDK_PLATFORM = android-8
-
-# uncomment this for custom application name (if the folder name is different than the application name)
-#APPNAME = folderName
-
-# uncomment this for custom package name, must be the same as the java package that contains OFActivity
-#PKGNAME = cc.openframeworks.$(APPNAME)
-
-# linux arm flags
-
-LINUX_ARM7_COMPILER_OPTIMIZATIONS = -march=armv7-a -mtune=cortex-a8 -finline-functions -funroll-all-loops  -O3 -funsafe-math-optimizations -mfpu=neon -ftree-vectorize -mfloat-abi=hard -mfpu=vfp
-
-
+################################################################################
+# PROJECT COMPILERS
+#   Custom compilers can be set for CC and CXX
+#		(default) PROJECT_CXX = (blank)
+#		(default) PROJECT_CC = (blank)
+#   Note: Leave a leading space when adding list items with the += operator
+################################################################################
+# PROJECT_CXX = 
+# PROJECT_CC = 
 
